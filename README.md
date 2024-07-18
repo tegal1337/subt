@@ -35,6 +35,10 @@ testimonial.example.com [301] | Not vulnerable
 - **Support for Different Input Formats**: Handles single domains, lists of domains, and direct subdomain lists.
 - **Integration with Subfinder**: Optionally integrates with Subfinder for discovering subdomains dynamically.
 
+## Use of Tools
+   - [Subfinder : ](https://github.com/projectdiscovery/subfinder)Searching for subdomains.
+   - **Dig** : Checking CNAME.
+   - **Curl** : Checks the status code.
 ## Usage
 ### Installation
 Clone the repository :
