@@ -1,8 +1,33 @@
-# Subdomain Takeover Scanner (SubT)
+# SubT | Subdomain Takeover Scanner
 
 ## Details
 SubT is a Python tool designed to scan subdomains for potential takeover vulnerabilities based on CNAME and HTTP status codes. It checks each subdomain against a predefined list of vulnerable configurations stored in YAML files.
+```
+┌──(root㉿tegalsec)-[/home/van/Project/subt]
+└─# python subt.py example.com
 
+██████████████████████████                                                                                              
+█─▄▄▄▄█▄─██─▄█▄─▄─▀█─▄─▄─█                                                                                              
+█▄▄▄▄─██─██─███─▄─▀███─███                                                                                              
+▀▄▄▄▄▄▀▀▄▄▄▄▀▀▄▄▄▄▀▀▀▄▄▄▀▀                                                                                              
+                                                                                                                        
+Subdomain Takeover Scanner                                                                                              
+= Author by Van | Tegalsec                                                                                              
+--------------------------                                                                                              
+[+] Checking subdomains for domain: example.com                                                                      
+hub.example.com [301] | Not vulnerable
+creators.example.com [409] | vulnerable can be takeover! [cname.testimonial.to]
+oneten.example.com [302] | Not vulnerable
+video.example.com [404] | vulnerable can be takeover! [custom.gohire.io]
+udacity.example.com [302] | Not vulnerable
+tp-knowitgetit.example.com [404] | vulnerable can be takeover! [na-west1.surge.sh]
+training.example.com [301] | Not vulnerable
+forward-champions.example.com [301] | Not vulnerable
+oneten-udacity.example.com [409] | vulnerable can be takeover! [cname.testimonial.to]
+hello.example.com [302] | Not vulnerable
+dashboard.example.com [302] | Not vulnerable
+testimonial.example.com [301] | Not vulnerable
+```
 ## Features
 - **Subdomain Scanning**: Supports scanning subdomains from a file, a list of domains, or directly provided subdomains.
 - **Vulnerability Detection**: Identifies subdomains vulnerable to takeover based on CNAME and HTTP status codes.
