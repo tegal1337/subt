@@ -1,0 +1,5 @@
+cname: "oceges.helpscoutdocs.com" 
+status_code:
+    - 404
+    - 301
+status: "vulnerable can be takeover!"

@@ -1,0 +1,3 @@
+subdo.example.com
+subdo.example2.com
+subdo.example3.com
