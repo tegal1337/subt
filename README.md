@@ -12,7 +12,7 @@ SubT is a Python tool designed to scan subdomains for potential takeover vulnera
 ▀▄▄▄▄▄▀▀▄▄▄▄▀▀▄▄▄▄▀▀▀▄▄▄▀▀                                                                                              
                                                                                                                         
 Subdomain Takeover Scanner                                                                                              
-= Author by Van | Tegalsec                                                                                              
+Author by Van | Tegalsec                                                                                              
 --------------------------                                                                                              
 [+] Checking subdomains for domain: example.com                                                                      
 hub.example.com [301] | Not vulnerable
