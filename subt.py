@@ -25,6 +25,9 @@ def load_vulnerable_domains():
                 except yaml.YAMLError as e:
                     print(f"Error reading {filename}: {e}")
 
+    # Menambahkan entri dinamis
+    vulnerable_domains.append({'cname': 'github.io', 'status_code': 404, 'status': 'vulnerable can be takeover!'})
+    
     return vulnerable_domains
 
 def subfinder_scan(domain):
@@ -81,7 +84,8 @@ def main(input, listdomains=False, direct_subdomains=False):
 ▀▄▄▄▄▄▀▀▄▄▄▄▀▀▄▄▄▄▀▀▀▄▄▄▀▀
 
 Subdomain Takeover Scanner
-= Author by Van | Tegalsec
+Author by Van | Tegalsec
+--------------------------
 ''' + Style.RESET_ALL)
 
     if listdomains:
@@ -92,7 +96,7 @@ Subdomain Takeover Scanner
         for domain in domains:
             subdomains = subfinder_scan(domain)
             if subdomains:
-                print(Fore.CYAN + f"[+] Checking subdomains for domain: {domain}" + Style.RESET_ALL)
+                print(Fore.CYAN + f"\n[+] Checking subdomains for domain: {domain}" + Style.RESET_ALL)
                 found_vulnerable = False
                 for subdomain in subdomains:
                     cname, status_code = check_subdomain(subdomain)
@@ -100,15 +104,21 @@ Subdomain Takeover Scanner
                         is_vulnerable = False
                         for domain_info in vulnerable_domains:
                             if domain_info['cname'] in cname and domain_info['status_code'] == status_code:
-                                print(Fore.YELLOW + f"{subdomain} [{status_code}] | {domain_info['status']} [{domain_info['cname']}]" + Style.RESET_ALL)
+                                print(Fore.RED + f"{subdomain} [{status_code}] | {domain_info['status']} [{domain_info['cname']}]" + Style.RESET_ALL)
+                                found_vulnerable = True
+                                is_vulnerable = True
+                                break
+                            # Cek untuk CNAME dinamis
+                            elif '*' in domain_info['cname'] and domain_info['cname'].replace('*', '') in cname and domain_info['status_code'] == status_code:
+                                print(Fore.RED + f"{subdomain} [{status_code}] | {domain_info['status']} [{domain_info['cname']}]" + Style.RESET_ALL)
                                 found_vulnerable = True
                                 is_vulnerable = True
                                 break
                         if not is_vulnerable:
-                            print(Fore.RED + f"{subdomain} [{status_code}] | Not vulnerable" + Style.RESET_ALL)
+                            print(Fore.GREEN + f"{subdomain} [{status_code}] | Not vulnerable" + Style.RESET_ALL)
 
                 if not found_vulnerable:
-                    print(Fore.RED + "No vulnerable subdomains found." + Style.RESET_ALL)
+                    print(Fore.GREEN + "No vulnerable subdomains found." + Style.RESET_ALL)
 
     elif direct_subdomains:
         print(Fore.GREEN + "[+] Checking direct list of subdomains..." + Style.RESET_ALL)
@@ -124,15 +134,21 @@ Subdomain Takeover Scanner
                     is_vulnerable = False
                     for domain_info in vulnerable_domains:
                         if domain_info['cname'] in cname and domain_info['status_code'] == status_code:
-                            print(Fore.BLUE + f"{subdomain} [{status_code}] | {domain_info['status']} [{domain_info['cname']}]" + Style.RESET_ALL)
+                            print(Fore.RED + f"{subdomain} [{status_code}] | {domain_info['status']} [{domain_info['cname']}]" + Style.RESET_ALL)
+                            found_vulnerable = True
+                            is_vulnerable = True
+                            break
+                        # Cek untuk CNAME dinamis
+                        elif '*' in domain_info['cname'] and domain_info['cname'].replace('*', '') in cname and domain_info['status_code'] == status_code:
+                            print(Fore.RED + f"{subdomain} [{status_code}] | {domain_info['status']} [{domain_info['cname']}]" + Style.RESET_ALL)
                             found_vulnerable = True
                             is_vulnerable = True
                             break
                     if not is_vulnerable:
-                        print(Fore.RED + f"{subdomain} [{status_code}] | Not vulnerable" + Style.RESET_ALL)
+                        print(Fore.GREEN + f"{subdomain} [{status_code}] | Not vulnerable" + Style.RESET_ALL)
 
             if not found_vulnerable:
-                print(Fore.YELLOW + "No vulnerable subdomains found." + Style.RESET_ALL)
+                print(Fore.GREEN + "No vulnerable subdomains found." + Style.RESET_ALL)
 
     else:
         # Single domain input or direct subdomain list
@@ -151,6 +167,12 @@ Subdomain Takeover Scanner
                     is_vulnerable = False
                     for domain_info in vulnerable_domains:
                         if domain_info['cname'] in cname and domain_info['status_code'] == status_code:
+                            print(Fore.RED + f"{subdomain} [{status_code}] | {domain_info['status']} [{domain_info['cname']}]" + Style.RESET_ALL)
+                            found_vulnerable = True
+                            is_vulnerable = True
+                            break
+                        # Cek untuk CNAME dinamis
+                        elif '*' in domain_info['cname'] and domain_info['cname'].replace('*', '') in cname and domain_info['status_code'] == status_code:
                             print(Fore.RED + f"{subdomain} [{status_code}] | {domain_info['status']} [{domain_info['cname']}]" + Style.RESET_ALL)
                             found_vulnerable = True
                             is_vulnerable = True
